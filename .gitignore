@@ -1,0 +1,5 @@
+tomcat/*.war
+nginx/*.tar
+
+.idea
+

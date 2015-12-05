@@ -1,0 +1,24 @@
+events_api_mysql:
+  name: events_api_mysql
+  container_name: events_api_mysql
+  build: ./mysql
+  volumes:
+    - /var/lib/mysql:/var/lib/mysql
+
+events_api_tomcat:
+  name: events_api_tomcat
+  container_name: events_api_tomcat
+  build: ./tomcat
+  ports:
+   - "9090:8080"
+  links:
+   - events_api_mysql
+
+events_ui_nginx:
+  name: events_ui_nginx
+  container_name: events_ui_nginx
+  build: ./nginx
+  ports:
+   - "9091:80"
+  links:
+   - events_api_tomcat
