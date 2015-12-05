@@ -1,3 +1,4 @@
+/events-docker.iml
 tomcat/*.war
 nginx/*.tar
 
