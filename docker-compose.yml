@@ -2,6 +2,9 @@ events_api_mysql:
   name: events_api_mysql
   container_name: events_api_mysql
   build: ./mysql
+  environment:
+    - MYSQL_ROOT_PASSWORD=root-password
+    - MYSQL_PASSWORD=events0
   volumes:
     - /var/lib/mysql:/var/lib/mysql
 
@@ -9,6 +12,16 @@ events_api_tomcat:
   name: events_api_tomcat
   container_name: events_api_tomcat
   build: ./tomcat
+  environment:
+    - spring_profiles_active=production
+    - db_driver=com.mysql.jdbc.Driver
+    - db_host=jdbc:mysql://events_api_mysql:3306/
+    - db_database=events
+    - db_username=events
+    - db_password=events0
+    - hibernate_show_sql=true
+    - hibernate_format_sql=true
+    - allowed_origins=*
   ports:
    - "9090:8080"
   links:
@@ -18,6 +31,8 @@ events_ui_nginx:
   name: events_ui_nginx
   container_name: events_ui_nginx
   build: ./nginx
+  environment:
+      - api_url=http://events_api_tomcat:9090/events-api/
   ports:
    - "9091:80"
   links:
