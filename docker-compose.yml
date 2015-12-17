@@ -32,8 +32,6 @@ events_ui_nginx:
   container_name: events_ui_nginx
   build: ./nginx
   environment:
-      - api_url=http://events_api_tomcat:9090/events-api/
+      - api_url=http://$host_ip:9090/events-api
   ports:
    - "9091:80"
-  links:
-   - events_api_tomcat
