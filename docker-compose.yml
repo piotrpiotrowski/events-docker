@@ -32,6 +32,8 @@ events_ui_nginx:
   container_name: events_ui_nginx
   build: ./nginx
   environment:
-      - api_url=http://$host_ip:9090/events-api
+      - api_url=events-api
+      - protocol=http
+      - host_port=:9090
   ports:
    - "9091:80"
